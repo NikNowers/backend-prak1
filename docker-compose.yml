@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  my_app:
+    build: ./prak1
+    ports:
+      - 8081:80
+
+  mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+    volumes:
+       - "./prak1/init.sql:/docker-entrypoint-initdb.d/init.sql"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
